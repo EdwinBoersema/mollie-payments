@@ -15,16 +15,16 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.json({ limit: "1mb" }));
 
 // Database connection
-// mongoose.connect(process.env.DB_URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useFindAndModify: false
-// }).then(
-//     () => {
-//         console.log('Database is connected')
-//     },
-//     err => { console.log('Can not connect to the database' + err) }
-// );
+mongoose.connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+}).then(
+    () => {
+        console.log('Database is connected')
+    },
+    err => { console.log('Can not connect to the database' + err) }
+);
 
 // ======
 // ROUTES
