@@ -75,6 +75,7 @@ app.get("/mollie", (req, res) => {
             });
 
             console.log(payment);
+            res.redirect(payment.getCheckoutUrl());
         } catch (error) {
             console.warn(error);
         }
