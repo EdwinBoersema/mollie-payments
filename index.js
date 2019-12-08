@@ -64,8 +64,8 @@ app.get("/mollie", (req, res) => {
           currency: 'EUR'
         },
         description: 'mollie test payment',
-        redirectUrl: 'https://18406704.ngrok.io',
-        webhookUrl:  'https://856adc1c.ngrok.io'
+        redirectUrl: 'https://enigmatic-plateau-68585.herokuapp.com/confirmation',
+        webhookUrl:  'https://enigmatic-plateau-68585.herokuapp.com/webhook'
       })
         .then(payment => {
           // Forward the customer to the payment.getCheckoutUrl()
@@ -79,6 +79,7 @@ app.get("/mollie", (req, res) => {
 app.post("/webhook", (req, res) => {
     let data = req.body;
     console.log(data);
+    res.send(200);
 });
 
 // CONFIRMATION
