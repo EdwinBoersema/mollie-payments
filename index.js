@@ -71,8 +71,7 @@ app.get("/mollie", (req, res) => {
                 metadata: {
                     order_id: "5ded2d431c9d4400008344f6",
                 },
-                method: ["ideal"],
-                locale: ["nl_NL"],
+                method: "ideal"
             });
 
             console.log(payment);
