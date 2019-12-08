@@ -6,3 +6,5 @@ const orderSchema = new mongoose.Schema({
     orderedAt: Date,
     status: {type: String, default: "pending"}
 });
+
+module.exports = mongoose.model("Order", orderSchema);

@@ -56,6 +56,25 @@ app.post("/", (req, res) => {
     });
 });
 
+// mollie payment
+app.get("/mollie", (req, res) => {
+    mollieClient.payments.create({
+        amount: {
+          value:    '15.00',
+          currency: 'EUR'
+        },
+        description: 'mollie test payment',
+        redirectUrl: 'https://18406704.ngrok.io',
+        webhookUrl:  'https://856adc1c.ngrok.io'
+      })
+        .then(payment => {
+          // Forward the customer to the payment.getCheckoutUrl()
+        })
+        .catch(error => {
+          // Handle the error
+        });
+});
+
 // payment status webhook
 app.post("/webhook", (req, res) => {
     let data = req.body;
