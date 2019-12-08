@@ -87,7 +87,16 @@ app.get("/mollie", (req, res) => {
 app.post("/webhook", (req, res) => {
     let data = req.body;
     console.log(data);
-    res.send(200);
+    res.sendStatus(200);
+    (async () => {
+        try {
+            const payment = await mollieClient.payments.get(data.id);
+
+            console.log(payment);
+        } catch (error) {
+            console.warn(error);
+        }
+    })();
 });
 
 // CONFIRMATION
