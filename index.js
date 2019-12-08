@@ -3,8 +3,9 @@ const
     app = express(),
     bodyparser = require('body-parser'),
     { createMollieClient } = require('@mollie/api-client'),
-    mollieClient = createMollieClient({ apiKey: 'test_hUgDRy7uGxV5tRrF8pcFxB5TREA2ed' }),
-    mongoose = require("mongoose");
+    mollieClient = createMollieClient({ apiKey: mollie_KEY }),
+    mongoose = require("mongoose"),
+    Order = require("./models/order");
 
 // dotENV
 require('dotenv').config();
@@ -34,6 +35,31 @@ mongoose.connect(process.env.DB_URL, {
 // DEFAULT
 app.get("/", (req, res) => {
     res.render("home");
+});
+
+// order route
+app.post("/", (req, res) => {
+    let ts = Date.now();
+    let newDate = new Date(ts);
+    let order = {
+        name: "Bob Howard",
+        amount: "15.00",
+        orderedAt: newDate
+    };
+    Order.create(order, (err, newOrder) => {
+        if (err) {
+            console.log(err);
+            return res.send(err)
+        } else {
+            return res.redirect("/");
+        }
+    });
+});
+
+// payment status webhook
+app.post("/webhook", (req, res) => {
+    let data = req.body;
+    console.log(data);
 });
 
 // CONFIRMATION
