@@ -63,15 +63,20 @@ app.get("/mollie", (req, res) => {
           value:    '15.00',
           currency: 'EUR'
         },
+        metadata: {
+            id: "5ded2d431c9d4400008344f6"
+        },
         description: 'mollie test payment',
         redirectUrl: 'https://enigmatic-plateau-68585.herokuapp.com/confirmation',
         webhookUrl:  'https://enigmatic-plateau-68585.herokuapp.com/webhook'
       })
         .then(payment => {
           // Forward the customer to the payment.getCheckoutUrl()
+          res.redirect(payment.getCheckoutUrl());
         })
         .catch(error => {
           // Handle the error
+          return res.send(error);
         });
 });
 
