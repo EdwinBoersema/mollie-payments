@@ -58,27 +58,28 @@ app.post("/", (req, res) => {
 
 // mollie payment
 app.get("/mollie", (req, res) => {
-    mollieClient.payments.create({
-        amount: {
-          value:    '15.00',
-          currency: 'EUR'
-        },
-        metadata: {
-            id: "5ded2d431c9d4400008344f6"
-        },
-        description: 'mollie test payment',
-        redirectUrl: 'https://enigmatic-plateau-68585.herokuapp.com/confirmation',
-        webhookUrl:  'https://enigmatic-plateau-68585.herokuapp.com/webhook'
-      })
-        .then(payment => {
-          // Forward the customer to the payment.getCheckoutUrl()
-          res.redirect(payment.getCheckoutUrl());
-        })
-        .catch(error => {
-          // Handle the error
-          return res.send(error);
-        });
+    (async () => {
+        try {
+            const payment = await mollieClient.payments.create({
+                amount: {
+                    currency: 'EUR',
+                    value: '15.00', // You must send the correct number of decimals, thus we enforce the use of strings
+                },
+                description: 'mollie test payment',
+                redirectUrl: 'https://enigmatic-plateau-68585.herokuapp.com/confirmation',
+                webhookUrl: 'https://enigmatic-plateau-68585.herokuapp.com/webhook',
+                metadata: {
+                    order_id: "5ded2d431c9d4400008344f6",
+                },
+            });
+
+            console.log(payment);
+        } catch (error) {
+            console.warn(error);
+        }
+    })();
 });
+
 
 // payment status webhook
 app.post("/webhook", (req, res) => {
