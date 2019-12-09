@@ -3,7 +3,7 @@ const
     app = express(),
     bodyparser = require('body-parser'),
     { createMollieClient } = require('@mollie/api-client'),
-    mollieClient = createMollieClient({ apiKey: "test_hUgDRy7uGxV5tRrF8pcFxB5TREA2ed" }),
+    mollieClient = createMollieClient({ apiKey: mollie_key }),
     mongoose = require("mongoose"),
     Order = require("./models/order");
 
